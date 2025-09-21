@@ -1,0 +1,36 @@
+ <body>
+  <div class="container">
+    <div>
+      <h1>Užrašai</h1>
+
+      <form (ngSubmit)="addNote()" #noteForm="ngForm" class="card">
+        <label>
+          Antraštė
+          <input type="text" name="title" [(ngModel)]="title" required placeholder="Įveskite pavadinimą">
+        </label>
+
+        <label>
+          Tekstas
+          <textarea name="text" [(ngModel)]="text" required rows="4" placeholder="Įveskite tekstą"></textarea>
+        </label>
+
+        <button type="submit" [disabled]="noteForm.invalid">Pridėti</button>
+      </form>
+    </div>
+
+    <div class="list">
+      <h2>Išsaugoti užrašai</h2>
+      <ul *ngIf="hasNotes; else noNotes">
+        <li *ngFor="let note of notes; let i = index">
+          <strong>{{ note.title }}</strong><br>
+          <p class="note-text" [innerHTML]="note.text">{{ note.text }}</p>
+          <button type="button" (click)="deleteNote(i)">Ištrinti</button>
+        </li>
+      </ul>
+
+      <ng-template #noNotes>
+        <p class="muted">Kol kas nėra užrašų.</p>
+      </ng-template>
+    </div>
+  </div>
+ </body>
